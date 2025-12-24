@@ -25,6 +25,18 @@ public class Doctor {
     public double getSalary() { return salary; }
     public String getDegree() { return degree; }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
     public void setSalary(double salary) {
         if (salary >= 0) {
             this.salary = salary;

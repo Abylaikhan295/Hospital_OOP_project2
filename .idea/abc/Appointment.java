@@ -25,6 +25,18 @@ public class Appointment {
     public String getDoctorName() { return doctorName; }
     public double getFee() { return fee; }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     public void setFee(double fee) {
         if (fee >= 0) {
             this.fee = fee;
