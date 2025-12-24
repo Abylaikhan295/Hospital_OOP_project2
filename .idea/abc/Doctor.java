@@ -1,47 +1,50 @@
 package hospital;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Doctor {
-    private String id;
     private String name;
-    private String specialization;
-    private int experienceYears;
+    private String specialty;
     private double salary;
-    private List<Patient> patients; // patients under this doctor
+    private String degree;
 
-    public Doctor(String id, String name, String specialization, int experienceYears, double salary) {
-        this.id = id;
+    public Doctor(String name, String specialty, double salary, String degree) {
         this.name = name;
-        this.specialization = specialization;
-        this.experienceYears = experienceYears;
-        this.salary = salary;
-        this.patients = new ArrayList<>();
+        this.specialty = specialty;
+        setSalary(salary); // Validation
+        this.degree = degree;
     }
 
-    public String getName() {
-        return name;
+    public Doctor() {
+        this.name = "Staff Doctor";
+        this.specialty = "General";
+        this.salary = 4000D;
+        this.degree = "MD";
     }
 
-    public void diagnose(Patient patient) {
-        System.out.println(name + " is diagnosing " + patient.getName());
-        patient.setDisease("Diagnosed by " + name);
-        patients.add(patient);
-    }
+    public String getName() { return name; }
+    public String getSpecialty() { return specialty; }
+    public double getSalary() { return salary; }
+    public String getDegree() { return degree; }
 
-    public void listPatients() {
-        System.out.println("Patients under " + name + ":");
-        for(Patient p : patients) {
-            System.out.println("- " + p.getName());
+    public void setSalary(double salary) {
+        if (salary >= 0) {
+            this.salary = salary;
+        } else {
+            System.out.println("Warning: Salary cannot be negative!");
+            this.salary = 0;
         }
     }
 
-    @Override
+    public void applyRaise(double percentage) {
+        if (percentage > 0) {
+            this.salary += (this.salary * percentage / 100);
+        }
+    }
+
+    public boolean isSpecialist() {
+        return !specialty.equalsIgnoreCase("General");
+    }
+
     public String toString() {
-        return "Doctor ID: " + id +
-                ", Name: " + name +
-                ", Specialization: " + specialization +
-                ", Experience: " + experienceYears + " years" +
-                ", Salary: $" + salary;
+        return "Doctor{name='" + name + "', specialty='" + specialty + "', salary=" + salary + ", degree='" + degree + "'}";
     }
 }

@@ -1,59 +1,51 @@
 package hospital;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Patient {
-    private String id;
     private String name;
     private int age;
     private String disease;
-    private boolean admitted;
-    private List<String> medicalHistory; // store all past diseases
+    private boolean isAdmitted;
 
-    public Patient(String id, String name, int age, String disease, boolean admitted) {
-        this.id = id;
+    public Patient(String name, int age, String disease, boolean isAdmitted) {
         this.name = name;
-        this.age = age;
+        setAge(age);
         this.disease = disease;
-        this.admitted = admitted;
-        this.medicalHistory = new ArrayList<>();
-        if(disease != null && !disease.isEmpty()) {
-            medicalHistory.add(disease);
+        this.isAdmitted = isAdmitted;
+    }
+
+    public Patient() {
+        this.name = "New Patient";
+        this.age = 0;
+        this.disease = "Unknown";
+        this.isAdmitted = false;
+    }
+
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String getDisease() { return disease; }
+    public boolean isAdmitted() { return isAdmitted; }
+
+
+    public void setAge(int age) {
+        if (age >= 0 && age <= 120) {
+            this.age = age;
+        } else {
+            System.out.println("Warning: Invalid age! Setting to 0.");
+            this.age = 0;
         }
     }
 
-    public String getName() {
-        return name;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setDisease(String disease) { this.disease = disease; }
+    public void setAdmitted(boolean admitted) { isAdmitted = admitted; }
 
-    public String getDisease() {
-        return disease;
+    public boolean isSenior() {
+        return this.age >= 65;
     }
-
-    public void setDisease(String disease) {
-        if(this.disease != null && !this.disease.isEmpty()) {
-            medicalHistory.add(this.disease);
-        }
-        this.disease = disease;
+    public void updateStatus(boolean status) {
+        this.isAdmitted = status;
     }
-
-    public void admit() {
-        admitted = true;
-        System.out.println(name + " has been admitted.");
-    }
-
-    public void discharge() {
-        admitted = false;
-        System.out.println(name + " has been discharged.");
-    }
-
-    @Override
     public String toString() {
-        return "Patient ID: " + id +
-                ", Name: " + name +
-                ", Age: " + age +
-                ", Disease: " + disease +
-                ", Admitted: " + admitted +
-                ", History: " + medicalHistory;
+        return "Patient{name='" + name + "', age=" + age + ", disease='" + disease + "', admitted=" + isAdmitted + "}";
     }
 }

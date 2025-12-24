@@ -1,35 +1,47 @@
 package hospital;
 
 public class Appointment {
-
-    private String appointmentId;
-    private Patient patient;
-    private Doctor doctor;
     private String date;
-    private boolean completed;
+    private String patientName;
+    private String doctorName;
     private double fee;
 
-    public Appointment(String appointmentId, Patient patient, Doctor doctor, String date, double fee) {
-        this.appointmentId = appointmentId;
-        this.patient = patient;
-        this.doctor = doctor;
+    public Appointment(String date, String patientName, String doctorName, double fee) {
         this.date = date;
-        this.completed = false;
-        this.fee = fee;
+        this.patientName = patientName;
+        this.doctorName = doctorName;
+        setFee(fee);
     }
 
-    public void completeAppointment() {
-        completed = true;
-        System.out.println("Appointment " + appointmentId + " completed. Fee: $" + fee);
+    public Appointment() {
+        this.date = "TBD";
+        this.patientName = "Unknown";
+        this.doctorName = "Unknown";
+        this.fee = 0.0;
     }
 
-    @Override
+    public String getDate() { return date; }
+    public String getPatientName() { return patientName; }
+    public String getDoctorName() { return doctorName; }
+    public double getFee() { return fee; }
+
+    public void setFee(double fee) {
+        if (fee >= 0) {
+            this.fee = fee;
+        } else {
+            this.fee = 0;
+        }
+    }
+
+    public void reschedule(String newDate) {
+        this.date = newDate;
+    }
+
+    public boolean isPremium() {
+        return this.fee > 300;
+    }
+
     public String toString() {
-        return "Appointment ID: " + appointmentId +
-                "\nPatient: " + patient.getName() +
-                "\nDoctor: " + doctor.getName() +
-                "\nDate: " + date +
-                "\nCompleted: " + completed +
-                "\nFee: $" + fee;
+        return "Appointment{date='" + date + "', patient='" + patientName + "', doctor='" + doctorName + "', fee=" + fee + "}";
     }
 }
